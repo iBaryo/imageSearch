@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
 import { ImagesListComponent } from './images-list/images-list.component';
 import { ImageComponent } from './image/image.component';
+import { FlickrService, FlickrOptions, IFlickrOptions } from "app/flickr.service";
+import { ImageService } from "app/image.service";
 
 @NgModule({
   declarations: [
@@ -20,7 +22,16 @@ import { ImageComponent } from './image/image.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ImageService,
+      useClass: FlickrService
+    },
+    {
+      provide: FlickrOptions,
+      useValue: { apiKey: '13efc9a5ec0de63607ff59200d001452' } as IFlickrOptions 
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
