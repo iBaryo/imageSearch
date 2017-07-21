@@ -33,7 +33,6 @@ export class FlickrService extends ImageService {
       if (!res || !res.body || res.body.stat != 'ok')
         throw 'error getting photos from flickr';
 
-      debugger;
       return res.body.photos.photo.map(p => ({
         title: p.title,
         url: `//farm${p.farm}.staticflickr.com/${p.server}/${p.id}_${p.secret}.jpg`

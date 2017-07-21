@@ -41,7 +41,6 @@ describe('ImagesListComponent', () => {
   });
 
   xit('should not display label', async () => {
-    debugger;
     await fixture.whenStable();
     expect(
       fixture.debugElement.query(By.css('#results-label')).attributes['hidden']
@@ -56,7 +55,6 @@ describe('ImagesListComponent', () => {
     });
 
     it('should display images', async () => {
-      debugger;
       const searchText = 'everything before `but` is shit';
       const service = TestBed.get(ImageService) as ImageService;
       const imgs = await service.newSearch(searchText);

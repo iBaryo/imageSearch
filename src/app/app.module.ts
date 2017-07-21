@@ -9,13 +9,15 @@ import { ImagesListComponent } from './images-list/images-list.component';
 import { ImageComponent } from './image/image.component';
 import { FlickrService, FlickrOptions, IFlickrOptions } from "app/flickr.service";
 import { ImageService } from "app/image.service";
+import { SearchHistoryComponent, MaxHistroyEntries } from './search-history/search-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
     ImagesListComponent,
-    ImageComponent
+    ImageComponent,
+    SearchHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,10 @@ import { ImageService } from "app/image.service";
     {
       provide: FlickrOptions,
       useValue: { apiKey: '13efc9a5ec0de63607ff59200d001452' } as IFlickrOptions 
+    },
+    {
+      provide: MaxHistroyEntries,
+      useValue: 5
     }
   ],
   bootstrap: [AppComponent]

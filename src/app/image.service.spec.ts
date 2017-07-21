@@ -57,13 +57,15 @@ describe('ImageService', () => {
         }
       });
 
-      it('should next observable with extended data for each `next`', async () => {
+      it('should next observable with extended data for each `next`', async (done) => {
         let calls = 0;
+        const maxCalls = 5;
         search.data$.subscribe(images => {
           expect(images.length).toBe(calls * imgPerPage);
+          if (calls == maxCalls) done();
         });
 
-        for (calls = 1; calls < 5; calls++) {
+        for (calls = 1; calls <= 5; calls++) {
           await search.next();
         }
       });

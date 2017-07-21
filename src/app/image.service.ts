@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { Observer } from "rxjs/Observer";
+import { BehaviorSubject } from "rxjs";
 
 
 export interface Image {
@@ -16,35 +16,33 @@ export interface Search<T> {
 
 @Injectable()
 export abstract class ImageService {
-  protected _searchObserver: Observer<Search<Image[]>>;
-  public search$: Observable<Search<Image[]>>;
+  protected _newSearchEmitter: EventEmitter<Search<Image[]>>;
+  public get search$() { return this._newSearchEmitter.asObservable() };
 
   constructor() {
-    this.search$ = new Observable<Search<Image[]>>(o => this._searchObserver = o);
+    this._newSearchEmitter = new EventEmitter<Search<Image[]>>();
   }
 
   public newSearch(text: string, per_page = 20) {
     let images: Image[] = [];
     let page = 1;
-    let imgObserver: Observer<Image[]>;
-
+    let imgSubject = new BehaviorSubject<Image[]>([]);
+    
     const search: Search<Image[]> = {
       text,
-      data$: new Observable<Image[]>(o => imgObserver = o),
+      data$: imgSubject.asObservable(),
       next: async () => {
         const newImages = await this.search(text, per_page, page++);
         images = images.concat(newImages);
-        if (imgObserver)
-          imgObserver.next(images);
+        imgSubject.next(images);
         return newImages;
       }
     };
 
-    if (this._searchObserver)
-      this._searchObserver.next(search);
+    this._newSearchEmitter.next(search);
 
     return search;
   }
 
-  protected abstract search(text: string, per_page: number, page: number) : Promise<Image[]>;
+  protected abstract search(text: string, per_page: number, page: number): Promise<Image[]>;
 }

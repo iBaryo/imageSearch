@@ -1,0 +1,2 @@
+<h2>Search Histroy</h2>
+<a style="display: block" *ngFor="let searchText of history" (click)="imgService.newSearch(searchText)">{{searchText}}</a>
