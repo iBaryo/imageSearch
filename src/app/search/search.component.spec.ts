@@ -29,7 +29,7 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should invoke a new search according to input text', ()=> {
+  it('should invoke a new search according to input text', () => {
     // Arrange
     const searchText = 'the north remembers';
     fixture.debugElement.query(By.css('#searchText')).nativeElement.value = searchText;

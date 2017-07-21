@@ -10,7 +10,7 @@ export interface Image {
 
 export interface Search<T> {
   text: string,
-  data: Observable<Image[]>,
+  data$: Observable<Image[]>,
   next: () => Promise<Image[]>
 }
 
@@ -30,12 +30,13 @@ export abstract class ImageService {
 
     const search: Search<Image[]> = {
       text,
-      data: new Observable<Image[]>(o => imgObserver = o),
+      data$: new Observable<Image[]>(o => imgObserver = o),
       next: async () => {
-        images = images.concat(await this.search(text, per_page, page++));
+        const newImages = await this.search(text, per_page, page++);
+        images = images.concat(newImages);
         if (imgObserver)
           imgObserver.next(images);
-        return images;
+        return newImages;
       }
     };
 

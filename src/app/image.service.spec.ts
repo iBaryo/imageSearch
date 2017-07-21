@@ -29,7 +29,7 @@ describe('ImageService', () => {
     it('new search should next observable', (done) => {
       service.search$.subscribe(search => {
         expect(search.text).toBe(searchText);
-        expect(search.data).toEqual(jasmine.any(Observable));
+        expect(search.data$).toEqual(jasmine.any(Observable));
         expect(search.next).toEqual(jasmine.any(Function));
         done();
       });
@@ -46,20 +46,20 @@ describe('ImageService', () => {
 
       it('should also return search object sync', () => {
         expect(search).toEqual(jasmine.any(Object));
-        expect(search.data).toEqual(jasmine.any(Observable));
+        expect(search.data$).toEqual(jasmine.any(Observable));
         expect(search.text).toBe(searchText);
       });
 
       it('should return extend data with each `next`', async () => {
         for (let calls = 1; calls < 5; calls++) {
           let images = await search.next();
-          expect(images.length).toBe(calls * imgPerPage);
+          expect(images.length).toBe(imgPerPage);
         }
       });
 
       it('should next observable with extended data for each `next`', async () => {
         let calls = 0;
-        search.data.subscribe(images => {
+        search.data$.subscribe(images => {
           expect(images.length).toBe(calls * imgPerPage);
         });
 

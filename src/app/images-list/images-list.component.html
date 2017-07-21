@@ -1,3 +1,3 @@
-<p>
-  images-list works!
-</p>
+<h2 id="results-label" [hidden]="!search">Displaying results for '{{search?.text}}'</h2>
+<app-image *ngFor="let img of search?.data$ | async" [image]="img"></app-image>
+<button [hidden]="!hasMore" (click)="next()">More</button>
