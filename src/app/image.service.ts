@@ -33,12 +33,14 @@ export abstract class ImageService {
       data: new Observable<Image[]>(o => imgObserver = o),
       next: async () => {
         images = images.concat(await this.search(text, per_page, page++));
-        imgObserver.next(images);
+        if (imgObserver)
+          imgObserver.next(images);
         return images;
       }
     };
 
-    this._searchObserver.next(search);
+    if (this._searchObserver)
+      this._searchObserver.next(search);
 
     return search;
   }

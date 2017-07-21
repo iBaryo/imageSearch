@@ -24,7 +24,7 @@ describe('FlickrService', () => {
   });
 
   it('should search', async () => {
-    const res = await service.search('puppies');
+    const res = await service.newSearch('puppies');
     // expect().toBeTruthy();
     // fail();
   });
