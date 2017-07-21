@@ -1,23 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { ImageService, Search, Image } from './image.service';
 import { Observable } from "rxjs/Observable";
-
-
-const imgPerPage = 1;
-class MockImageService extends ImageService {
-  public id = 0;
-  protected async search(text, per_page, page) {
-    const imgs = [];
-    for (let i = 0; i < imgPerPage; i++)
-      imgs.push({
-        title: `${++this.id}`,
-        url: `http://${this.id}`
-      });
-
-    return imgs;
-  }
-}
+import { MockImageService, imgPerPage } from "app/mock.image.service";
 
 describe('ImageService', () => {
   let service: MockImageService;

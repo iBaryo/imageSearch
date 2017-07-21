@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ImageService } from "app/image.service";
 
 @Component({
   selector: 'app-search',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(public imgService : ImageService) { }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
-
 }

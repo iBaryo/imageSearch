@@ -1,3 +1,2 @@
-<p>
-  search works!
-</p>
+<input #searchText id="searchText" type="text" />
+<input id="newSearchBtn" type="button" (click)="imgService.newSearch(searchText.value)" />
