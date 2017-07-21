@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { FlickrService, FlickrOptions, IFlickrOptions } from './flickr.service';
-  require('jasmine-co').install();
+
+require('jasmine-co').install();
 
 describe('FlickrService', () => {
   let service: FlickrService;
@@ -23,9 +23,5 @@ describe('FlickrService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should search', async () => {
-    const res = await service.newSearch('puppies');
-    // expect().toBeTruthy();
-    // fail();
-  });
+  // 3rd party sdk, no need for more tests
 });
