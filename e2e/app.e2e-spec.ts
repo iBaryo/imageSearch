@@ -6,9 +6,4 @@ describe('img-search App', () => {
   beforeEach(() => {
     page = new ImgSearchPage();
   });
-
-  it('should display message saying app works', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
-  });
 });
