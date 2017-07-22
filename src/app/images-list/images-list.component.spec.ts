@@ -40,10 +40,11 @@ describe('ImagesListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should not display label', async () => {
+  it('should not display label', async () => {
     await fixture.whenStable();
+    const labelEl = fixture.debugElement.query(By.css('#results-label')).nativeElement;
     expect(
-      fixture.debugElement.query(By.css('#results-label')).attributes['hidden']
+      labelEl.attributes['hidden']
     ).toBeTruthy();
   });
 
