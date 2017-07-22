@@ -41,7 +41,6 @@ describe('ImagesListComponent', () => {
   });
 
   it('should not display label', async () => {
-    await fixture.whenStable();
     const labelEl = fixture.debugElement.query(By.css('#results-label')).nativeElement;
     expect(
       labelEl.attributes['hidden']
@@ -49,19 +48,20 @@ describe('ImagesListComponent', () => {
   });
 
   describe('new search', () => {
-    it('should display label', async () => {
-      expect(
-        fixture.debugElement.query(By.css('#results-label')).attributes['hidden']
-      ).toBeFalsy();
-    });
-
-    it('should display images', async () => {
+    beforeEach(async () => {
       const searchText = 'everything before `but` is shit';
       const service = TestBed.get(ImageService) as ImageService;
       const imgs = await service.newSearch(searchText);
       fixture.detectChanges();
-      await fixture.isStable();
-      fixture.detectChanges();
+    });
+
+    it('should display label', async () => {
+      expect(
+        fixture.debugElement.query(By.css('#results-label')).nativeElement.attributes['hidden']
+      ).toBeFalsy();
+    });
+
+    it('should display images', async () => {
       const imageCmps = fixture.debugElement.queryAll(By.directive(MockImageComponent));
       expect(imageCmps.length).toBe(imgPerPage)
     });
