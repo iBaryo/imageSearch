@@ -4,11 +4,13 @@ import { SearchHistoryComponent, MaxHistroyEntries } from './search-history.comp
 import { ImageService } from "app/image.service";
 import { MockImageService } from "app/mock.image.service";
 import { By } from "@angular/platform-browser";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 require('jasmine-co').install();
 
 describe('SearchHistoryComponent', () => {
   const searchText = 'ruler of the three kingdoms';
+  const maxHistoryEntries = 5;
 
   let component: SearchHistoryComponent;
   let fixture: ComponentFixture<SearchHistoryComponent>;
@@ -24,9 +26,10 @@ describe('SearchHistoryComponent', () => {
         },
         {
           provide: MaxHistroyEntries,
-          useValue: 5
+          useValue: maxHistoryEntries
         }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
   }));
@@ -43,7 +46,7 @@ describe('SearchHistoryComponent', () => {
   });
 
   it('should display a new entry for each new search', async () => {
-    for (let searchCalls = 1; searchCalls <= 5; searchCalls++) {
+    for (let searchCalls = 1; searchCalls <= maxHistoryEntries; searchCalls++) {
       await service.newSearch(`${searchText} ${searchCalls}`);
       fixture.detectChanges();
       const histroyEntries = fixture.debugElement.queryAll(By.css('.search-text'));
@@ -52,7 +55,7 @@ describe('SearchHistoryComponent', () => {
   });
 
   it('should not create a new entry for an existing entry', async () => {
-    for (let searchCalls = 1; searchCalls <= 5; searchCalls++) {
+    for (let searchCalls = 1; searchCalls <= maxHistoryEntries; searchCalls++) {
       await service.newSearch(searchText);
       fixture.detectChanges();
       const histroyEntries = fixture.debugElement.queryAll(By.css('.search-text'));
@@ -64,9 +67,21 @@ describe('SearchHistoryComponent', () => {
     await service.newSearch(searchText);
     fixture.detectChanges();
     spyOn(service, 'newSearch');
-    const historyEntry = fixture.debugElement.query(By.css('.search-text')).nativeElement;
+    const historyEntry = fixture.debugElement.query(By.css('.search-text h4')).nativeElement;
     historyEntry.click();
     await fixture.whenStable();
     expect(service.newSearch).toHaveBeenCalledWith(historyEntry.innerText);
+  });
+
+  it('should clear history when clicking the respective buttons', async () => {
+    for (let searchCalls = 1; searchCalls <= maxHistoryEntries; searchCalls++) {
+      await service.newSearch(searchText);
+    }
+
+    fixture.debugElement.query(By.css('.clear')).nativeElement.click();
+    await fixture.whenStable();
+
+    const histroyEntries = fixture.debugElement.queryAll(By.css('.search-text'));
+    expect(histroyEntries.length).toBe(0);
   });
 });

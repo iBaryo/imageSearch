@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { SearchComponent } from './search.component';
 import { ImageService } from "app/image.service";
 import { MockImageService } from "app/mock.image.service";
 import { By } from "@angular/platform-browser";
+import { FormsModule } from "@angular/forms";
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -11,10 +12,12 @@ describe('SearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule],
       declarations: [SearchComponent],
       providers: [
         { provide: ImageService, useClass: MockImageService }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
   }));
@@ -32,7 +35,7 @@ describe('SearchComponent', () => {
   it('should invoke a new search according to input text', () => {
     // Arrange
     const searchText = 'the north remembers';
-    fixture.debugElement.query(By.css('#searchText')).nativeElement.value = searchText;
+    component.searchText = searchText;
     spyOn(component.imgService, 'newSearch').and.callThrough();
 
     // Act

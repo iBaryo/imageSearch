@@ -1,2 +1,11 @@
-<h2>Search Histroy</h2>
-<a class="search-text" style="display: block" *ngFor="let searchText of history" (click)="imgService.newSearch(searchText)">{{searchText}}</a>
+<div class="container">
+    <h2>Search history</h2>
+    <button md-raised-button class="clear" (click)="history = []">Clear</button>
+    <md-list>
+        <md-list-item class="search-text" style="display: block" *ngFor="let searchText of history">
+            <h4 md-line (click)="imgService.newSearch(searchText)">
+                {{searchText}}
+            </h4>
+        </md-list-item>
+    </md-list>
+</div>

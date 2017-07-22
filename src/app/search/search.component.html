@@ -1,2 +1,4 @@
-<input #searchText id="searchText" type="text" placeholder="search away" />
-<input id="newSearchBtn" type="button" value="search" (click)="imgService.newSearch(searchText.value)" />
+<md-input-container>
+    <input [(ngModel)]="searchText" (keyup.enter)="imgService.newSearch(searchText)" mdInput id="searchText" type="text" placeholder="search away" />
+</md-input-container>
+<button md-raised-button id="newSearchBtn" (click)="imgService.newSearch(searchText)">Search</button>

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ImagesListComponent } from './images-list.component';
 import { MockImageService, imgPerPage } from "app/mock.image.service";
 import { ImageService, Image } from "app/image.service";
@@ -25,7 +25,8 @@ describe('ImagesListComponent', () => {
       declarations: [ImagesListComponent, MockImageComponent],
       providers: [
         { provide: ImageService, useClass: MockImageService }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
   }));

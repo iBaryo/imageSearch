@@ -1,3 +1,6 @@
 <h2 id="results-label" [hidden]="!search">Displaying results for '{{search?.text}}'</h2>
 <app-image *ngFor="let img of search?.data$ | async" [image]="img"></app-image>
-<button [hidden]="!hasMore" (click)="next()">More</button>
+<div class="actions">
+    <button md-raised-button *ngIf="!isLoading && hasMore" (click)="next()">More</button>
+    <md-progress-spinner color="primary" mode="indeterminate" *ngIf="isLoading"></md-progress-spinner>
+</div>

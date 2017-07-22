@@ -1,4 +1,8 @@
-<div>
-  <img [src]="image.url" style="display: block" />
-  <label>{{image.title}}</label>
-</div>
+<md-card>
+  <md-card-header>
+    <md-card-title>
+      {{image.title}}
+    </md-card-title>
+  </md-card-header>
+  <img md-card-image [src]="image.url" />  
+</md-card>

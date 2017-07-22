@@ -10,6 +10,9 @@ import { ImageComponent } from './image/image.component';
 import { FlickrService, FlickrOptions, IFlickrOptions } from "app/flickr.service";
 import { ImageService } from "app/image.service";
 import { SearchHistoryComponent, MaxHistroyEntries } from './search-history/search-history.component';
+import { MyOwnCustomMaterialModule } from "app/MyCustomMaterialModule";
+
+
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { SearchHistoryComponent, MaxHistroyEntries } from './search-history/sear
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MyOwnCustomMaterialModule
   ],
   providers: [
     {
@@ -31,7 +35,7 @@ import { SearchHistoryComponent, MaxHistroyEntries } from './search-history/sear
     },
     {
       provide: FlickrOptions,
-      useValue: { apiKey: '13efc9a5ec0de63607ff59200d001452' } as IFlickrOptions 
+      useValue: { apiKey: '13efc9a5ec0de63607ff59200d001452' } as IFlickrOptions
     },
     {
       provide: MaxHistroyEntries,

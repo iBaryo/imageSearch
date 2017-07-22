@@ -8,7 +8,12 @@ import { ImageService } from "app/image.service";
 })
 export class SearchComponent implements OnInit {
 
-  constructor(public imgService : ImageService) { }
+  @ViewChild('searchText')
+  public searchText : string;
+
+  constructor(public imgService : ImageService) { 
+    imgService.search$.subscribe(newSearch => this.searchText = newSearch.text);
+  }
 
   ngOnInit() { 
   }
