@@ -10,8 +10,8 @@ export interface Image {
 
 export interface Search<T> {
   text: string,
-  data$: Observable<Image[]>,
-  next: () => Promise<Image[]>
+  data$: Observable<T>,
+  next: () => Promise<T>
 }
 
 @Injectable()
